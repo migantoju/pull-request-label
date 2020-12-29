@@ -5,8 +5,8 @@ import requests
 
 BASE_URL = "https://api.github.com"
 GH_TOKEN = os.getenv("INPUT_GITHUB_TOKEN")
-GH_REPO = os.getenv("INPUT_REPOSITORY")
 PR_NUMBER = os.getenv("INPUT_PR_NUMBER")
+GH_REPO = os.getenv("GITHUB_REPOSITORY")
 
 
 def make_request(method: str, url: str, body: dict = None) -> requests.Response:
