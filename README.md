@@ -52,4 +52,4 @@ uses: migantoju/pull-request-label@master
 
 [MIT](https://github.com/migantoju/pull-request-label/blob/master/LICENSE)
 
-Maded with ❤️ by Miguel Toledano.
+Maded with ❤️.
