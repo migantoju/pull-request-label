@@ -31,9 +31,6 @@ def make_request(method: str, url: str, body: dict = None) -> requests.Response:
         headers=headers
     )
 
-    print(response)
-    print(response.json())
-
     return response
 
 
