@@ -3,4 +3,4 @@ env
 .envs
 envs
 *.pyc
-
+.idea

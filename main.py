@@ -9,14 +9,14 @@ GH_REPO = os.getenv("INPUT_REPOSITORY")
 PR_NUMBER = os.getenv("INPUT_PR_NUMBER")
 
 
-def make_request(method: str, url: str, body: dict = None) -> int:
+def make_request(method: str, url: str, body: dict = None) -> requests.Response:
     """
     Method to make dynamic requests, in this case will be used for
-    make requests to the github api with differents HTTP Methods.
+    make requests to the github api with different HTTP Methods.
     :param method: An HTTP Method
     :param url: The url to make the request
     :param body: A dictionary with the necessary data to send in body
-    :return: The status code of the request.
+    :return: The request response.
     """
     format_token = f"token {GH_TOKEN}"
 
@@ -30,8 +30,8 @@ def make_request(method: str, url: str, body: dict = None) -> int:
         json=body,
         headers=headers
     )
-    
-    return response.status_code
+
+    return response
 
 
 def get_modifications() -> int:
@@ -40,8 +40,6 @@ def get_modifications() -> int:
     a pull request.
     :return: `int` Total additions + deletions.
     """
-    modifications = 0
-
     url = f"{BASE_URL}/repos/{GH_REPO}/pulls/{PR_NUMBER}"
 
     response = make_request(
@@ -54,7 +52,7 @@ def get_modifications() -> int:
     additions = json_response.get("additions", 0)
     deletions = json_response.get("deletions", 0)
 
-    modifications = additions + deletions
+    modifications: int = additions + deletions
 
     return modifications
 
@@ -65,17 +63,15 @@ def get_label(modifications: int) -> str:
     :modifications: Total modifications number.
     :return: The label string.
     """
-    # TODO: Improve this part
-
     if modifications <= 10:
         return "SIZE/XS"
-    elif modifications > 10 and modifications <= 100:
+    elif 10 < modifications <= 100:
         return "SIZE/S"
-    elif modifications > 100 and modifications <= 250:
+    elif 100 < modifications <= 250:
         return "SIZE/M"
-    elif modifications > 250 and modifications <= 500:
+    elif 250 < modifications <= 500:
         return "SIZE/L"
-    elif modifications > 500 and modifications <= 1000:
+    elif 500 < modifications <= 1000:
         return "SIZE/XL"
     else:
         return "Pull Request too big, please split it."
