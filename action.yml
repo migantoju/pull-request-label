@@ -1,0 +1,13 @@
+name: "Pull Request Size Labeler"
+description: "GitHub Action to set a label to an specific pull request based on their changes."
+author: "Miguel Toledano"
+inputs:
+  GITHUB_TOKEN:
+    description: "GitHub Token"
+    required: true
+  PR_NUMBER:
+    description: "Pull Request Number"
+    required: true
+runs:
+  using: "docker"
+  image: "Dockerfile"

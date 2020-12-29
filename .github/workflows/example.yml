@@ -1,0 +1,12 @@
+name: "Testing Action"
+on: [pull_request]
+
+jobs:
+  test_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set Label
+        uses: migantoju/pull-request-label@master
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.number }}
